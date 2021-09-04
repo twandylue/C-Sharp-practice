@@ -1,0 +1,16 @@
+D:\91APP\C-Sharp-practice\thread_practice\bin\Debug\net5.0\thread_practice.exe
+D:\91APP\C-Sharp-practice\thread_practice\bin\Debug\net5.0\thread_practice.deps.json
+D:\91APP\C-Sharp-practice\thread_practice\bin\Debug\net5.0\thread_practice.runtimeconfig.json
+D:\91APP\C-Sharp-practice\thread_practice\bin\Debug\net5.0\thread_practice.runtimeconfig.dev.json
+D:\91APP\C-Sharp-practice\thread_practice\bin\Debug\net5.0\thread_practice.dll
+D:\91APP\C-Sharp-practice\thread_practice\bin\Debug\net5.0\ref\thread_practice.dll
+D:\91APP\C-Sharp-practice\thread_practice\bin\Debug\net5.0\thread_practice.pdb
+D:\91APP\C-Sharp-practice\thread_practice\obj\Debug\net5.0\thread_practice.csproj.AssemblyReference.cache
+D:\91APP\C-Sharp-practice\thread_practice\obj\Debug\net5.0\thread_practice.GeneratedMSBuildEditorConfig.editorconfig
+D:\91APP\C-Sharp-practice\thread_practice\obj\Debug\net5.0\thread_practice.AssemblyInfoInputs.cache
+D:\91APP\C-Sharp-practice\thread_practice\obj\Debug\net5.0\thread_practice.AssemblyInfo.cs
+D:\91APP\C-Sharp-practice\thread_practice\obj\Debug\net5.0\thread_practice.csproj.CoreCompileInputs.cache
+D:\91APP\C-Sharp-practice\thread_practice\obj\Debug\net5.0\thread_practice.dll
+D:\91APP\C-Sharp-practice\thread_practice\obj\Debug\net5.0\ref\thread_practice.dll
+D:\91APP\C-Sharp-practice\thread_practice\obj\Debug\net5.0\thread_practice.pdb
+D:\91APP\C-Sharp-practice\thread_practice\obj\Debug\net5.0\thread_practice.genruntimeconfig.cache
