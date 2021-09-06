@@ -8,11 +8,23 @@ namespace thread_practice
 {
     class Program
     {
+        // normal
+        // static void Main()
+        // {
+        //     var producer = Task.Run(() => Producer()); //改成TPL的方式
+        //     var consumer = Task.Run(() => Consumer());
+        //     consumer.Wait();
+        // }
+        
+        // await 重點 main() 前方的Task
+        // static async Task Main()
+        // {
+        //     await task_pratice.awaitRun();
+        // }
+
         static void Main()
         {
-            var producer = Task.Run(() => Producer()); //改成TPL的方式
-            var consumer = Task.Run(() => Consumer());
-            consumer.Wait();
+            task_pratice.Run();
         }
         private static BlockingCollection<int> data = new BlockingCollection<int>(); //共享資料
 
