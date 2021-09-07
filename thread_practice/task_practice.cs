@@ -26,7 +26,7 @@ namespace thread_practice
                     Thread.Sleep(i*1000);
                     Console.WriteLine("test");
                 });
-                task_list.Add(t);
+                task_list.Add(t); // thread pool 的概念
             }
             foreach (var task in task_list) task.Wait();
         }

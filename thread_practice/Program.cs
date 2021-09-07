@@ -16,12 +16,14 @@ namespace thread_practice
         //     consumer.Wait();
         // }
         
-        // await 重點 main() 前方的Task
+        // await 重點 Main() 前方的Task
         // static async Task Main()
         // {
         //     await task_pratice.awaitRun();
         // }
 
+
+        // task_list
         static void Main()
         {
             task_pratice.Run();

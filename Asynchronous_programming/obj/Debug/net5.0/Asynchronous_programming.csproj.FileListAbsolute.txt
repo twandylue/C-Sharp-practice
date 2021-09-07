@@ -1,0 +1,16 @@
+D:\91APP\C-Sharp-practice\Asynchronous_programming\bin\Debug\net5.0\Asynchronous_programming.exe
+D:\91APP\C-Sharp-practice\Asynchronous_programming\bin\Debug\net5.0\Asynchronous_programming.deps.json
+D:\91APP\C-Sharp-practice\Asynchronous_programming\bin\Debug\net5.0\Asynchronous_programming.runtimeconfig.json
+D:\91APP\C-Sharp-practice\Asynchronous_programming\bin\Debug\net5.0\Asynchronous_programming.runtimeconfig.dev.json
+D:\91APP\C-Sharp-practice\Asynchronous_programming\bin\Debug\net5.0\Asynchronous_programming.dll
+D:\91APP\C-Sharp-practice\Asynchronous_programming\bin\Debug\net5.0\ref\Asynchronous_programming.dll
+D:\91APP\C-Sharp-practice\Asynchronous_programming\bin\Debug\net5.0\Asynchronous_programming.pdb
+D:\91APP\C-Sharp-practice\Asynchronous_programming\obj\Debug\net5.0\Asynchronous_programming.csproj.AssemblyReference.cache
+D:\91APP\C-Sharp-practice\Asynchronous_programming\obj\Debug\net5.0\Asynchronous_programming.GeneratedMSBuildEditorConfig.editorconfig
+D:\91APP\C-Sharp-practice\Asynchronous_programming\obj\Debug\net5.0\Asynchronous_programming.AssemblyInfoInputs.cache
+D:\91APP\C-Sharp-practice\Asynchronous_programming\obj\Debug\net5.0\Asynchronous_programming.AssemblyInfo.cs
+D:\91APP\C-Sharp-practice\Asynchronous_programming\obj\Debug\net5.0\Asynchronous_programming.csproj.CoreCompileInputs.cache
+D:\91APP\C-Sharp-practice\Asynchronous_programming\obj\Debug\net5.0\Asynchronous_programming.dll
+D:\91APP\C-Sharp-practice\Asynchronous_programming\obj\Debug\net5.0\ref\Asynchronous_programming.dll
+D:\91APP\C-Sharp-practice\Asynchronous_programming\obj\Debug\net5.0\Asynchronous_programming.pdb
+D:\91APP\C-Sharp-practice\Asynchronous_programming\obj\Debug\net5.0\Asynchronous_programming.genruntimeconfig.cache
