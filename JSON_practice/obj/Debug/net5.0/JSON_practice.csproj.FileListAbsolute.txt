@@ -1,0 +1,16 @@
+D:\91APP\C-Sharp-practice\JSON_practice\bin\Debug\net5.0\JSON_practice.exe
+D:\91APP\C-Sharp-practice\JSON_practice\bin\Debug\net5.0\JSON_practice.deps.json
+D:\91APP\C-Sharp-practice\JSON_practice\bin\Debug\net5.0\JSON_practice.runtimeconfig.json
+D:\91APP\C-Sharp-practice\JSON_practice\bin\Debug\net5.0\JSON_practice.runtimeconfig.dev.json
+D:\91APP\C-Sharp-practice\JSON_practice\bin\Debug\net5.0\JSON_practice.dll
+D:\91APP\C-Sharp-practice\JSON_practice\bin\Debug\net5.0\ref\JSON_practice.dll
+D:\91APP\C-Sharp-practice\JSON_practice\bin\Debug\net5.0\JSON_practice.pdb
+D:\91APP\C-Sharp-practice\JSON_practice\obj\Debug\net5.0\JSON_practice.csproj.AssemblyReference.cache
+D:\91APP\C-Sharp-practice\JSON_practice\obj\Debug\net5.0\JSON_practice.GeneratedMSBuildEditorConfig.editorconfig
+D:\91APP\C-Sharp-practice\JSON_practice\obj\Debug\net5.0\JSON_practice.AssemblyInfoInputs.cache
+D:\91APP\C-Sharp-practice\JSON_practice\obj\Debug\net5.0\JSON_practice.AssemblyInfo.cs
+D:\91APP\C-Sharp-practice\JSON_practice\obj\Debug\net5.0\JSON_practice.csproj.CoreCompileInputs.cache
+D:\91APP\C-Sharp-practice\JSON_practice\obj\Debug\net5.0\JSON_practice.dll
+D:\91APP\C-Sharp-practice\JSON_practice\obj\Debug\net5.0\ref\JSON_practice.dll
+D:\91APP\C-Sharp-practice\JSON_practice\obj\Debug\net5.0\JSON_practice.pdb
+D:\91APP\C-Sharp-practice\JSON_practice\obj\Debug\net5.0\JSON_practice.genruntimeconfig.cache

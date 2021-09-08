@@ -20,7 +20,7 @@ namespace Asynchronous_programming
 
         public static void produce2()
         {
-            // second use Wait
+            // second use Wait and TPL
             Task t = Task.Run(() =>
             {
                 Console.WriteLine("Completed!");
@@ -29,9 +29,10 @@ namespace Asynchronous_programming
             t.Wait();
         }
 
-        // third
+        
         public static void produce3()
         {
+            // third normal thread
             Thread t = new Thread(() =>
             {
                 Console.WriteLine("Completed!");
