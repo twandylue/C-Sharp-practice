@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 
 namespace ContosoWork
 {
-
     public class RabbitMQWorker : BackgroundService
     {
         private IConnection _connection;
@@ -32,8 +31,8 @@ namespace ContosoWork
                 VirtualHost = "/",
                 HostName = "localhost"
             };
-            var _connection = factory.CreateConnection();
-            var _channel = _connection.CreateModel();
+            _connection = factory.CreateConnection();
+            _channel = _connection.CreateModel();
 
             _channel.QueueDeclare(
                 queue: "task_queue",
@@ -46,36 +45,28 @@ namespace ContosoWork
                 prefetchCount: 1,
                 global: false
             );
-            // Console.WriteLine(" [*] Waiting for messages.");
             _loggerRabbitMQ.LogInformation(" [*] Waiting for messages.");
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += (sender, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
-                // Console.WriteLine(" [x] Received {0}", message);
                 Person ms = JsonSerializer.Deserialize<Person>(message);
                 _loggerRabbitMQ.LogInformation($"Name: {ms.name}");
                 _loggerRabbitMQ.LogInformation($"Age: {ms.age}");
                 _loggerRabbitMQ.LogInformation(" [x] Done");
-                // Console.WriteLine($"Name: {ms.name}");
-                // Console.WriteLine($"Age: {ms.age}");
-                // Console.WriteLine(" [x] Done");
                 _channel.BasicAck(
                     deliveryTag: ea.DeliveryTag,
                     multiple: false
                 );
                 Thread.Sleep(500);
             };
-            var _cosumerTag = _channel.BasicConsume(
+            _cosumerTag = _channel.BasicConsume(
                 queue: "task_queue",
                 autoAck: false,
                 consumer: consumer
             );
             _loggerRabbitMQ.LogInformation(" Press [enter] to exit");
-            // Console.WriteLine(" Press [enter] to exit");
-            // Console.ReadLine();
-            // _channel.BasicCancel(_cosumerTag);
             return Task.CompletedTask;
         }
 
