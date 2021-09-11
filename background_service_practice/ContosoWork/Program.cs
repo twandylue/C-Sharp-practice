@@ -18,8 +18,9 @@ namespace ContosoWork
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<Worker>();
-                    services.AddHostedService<TimerWorkerServices>();
+                    // services.AddHostedService<Worker>();
+                    // services.AddHostedService<TimerWorkerServices>();
+                    services.AddHostedService<RabbitMQWorker>();
                 });
     }
 }

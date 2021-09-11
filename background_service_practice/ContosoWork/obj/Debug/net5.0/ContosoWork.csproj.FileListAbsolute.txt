@@ -44,3 +44,4 @@ D:\91APP\C-Sharp-practice\background_service_practice\ContosoWork\obj\Debug\net5
 D:\91APP\C-Sharp-practice\background_service_practice\ContosoWork\obj\Debug\net5.0\ref\ContosoWork.dll
 D:\91APP\C-Sharp-practice\background_service_practice\ContosoWork\obj\Debug\net5.0\ContosoWork.pdb
 D:\91APP\C-Sharp-practice\background_service_practice\ContosoWork\obj\Debug\net5.0\ContosoWork.genruntimeconfig.cache
+D:\91APP\C-Sharp-practice\background_service_practice\ContosoWork\bin\Debug\net5.0\RabbitMQ.Client.dll
