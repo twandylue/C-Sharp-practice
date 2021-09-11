@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "W9MZGWNxAg3XynGTziIJTU5YH88IRpTWxK95YXlps3TJRX83jGWqTzpaX8SHRkKtfTPPIfIBUWay25QJ7SahKQ==",
+  "dgSpecHash": "npcIhjg3gARsPNsCDHYBbPIazFqPe7lqe48InzIn0+vekwXsH5MAjxNImZqV/inQeS+c4ELRHxS2HBoiwDAZ3A==",
   "success": true,
   "projectFilePath": "D:\\91APP\\C-Sharp-practice\\background_service_practice\\ContosoWork\\ContosoWork.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,7 @@
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0\\microsoft.extensions.filesystemglobbing.5.0.0.nupkg.sha512",
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\microsoft.extensions.hosting\\5.0.0\\microsoft.extensions.hosting.5.0.0.nupkg.sha512",
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\5.0.0\\microsoft.extensions.hosting.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\Andy Lu2\\.nuget\\packages\\microsoft.extensions.hosting.windowsservices\\5.0.1\\microsoft.extensions.hosting.windowsservices.5.0.1.nupkg.sha512",
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\microsoft.extensions.logging.configuration\\5.0.0\\microsoft.extensions.logging.configuration.5.0.0.nupkg.sha512",
@@ -36,6 +37,7 @@
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\system.security.accesscontrol\\5.0.0\\system.security.accesscontrol.5.0.0.nupkg.sha512",
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
+    "C:\\Users\\Andy Lu2\\.nuget\\packages\\system.serviceprocess.servicecontroller\\5.0.0\\system.serviceprocess.servicecontroller.5.0.0.nupkg.sha512",
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\system.threading.channels\\4.7.1\\system.threading.channels.4.7.1.nupkg.sha512"
   ],
   "logs": []
