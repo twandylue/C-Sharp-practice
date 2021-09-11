@@ -6,5 +6,5 @@ build_property.ProjectTypeGuids =
 build_property.PublishSingleFile = 
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
-build_property.RootNamespace = Asynchronous_programming
-build_property.ProjectDir = d:\91APP\C-Sharp-practice\Asynchronous_programming\
+build_property.RootNamespace = ContosoWork
+build_property.ProjectDir = d:\91APP\C-Sharp-practice\background_service_practice\ContosoWork\
