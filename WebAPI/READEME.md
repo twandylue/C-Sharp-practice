@@ -1,5 +1,11 @@
 以下以`PostgreSQL`為例
 
+- 啟用PostgreSQL (by docker)
+
+```docker
+docker run --name local-postgres -p 5432:5432 -e POSTGRES_PASSWORD=guest -d postgres:11
+```
+
 - 套件安裝
 
 先裝安裝`Microsoft.EntityFrameworkCore.Design` 和 `Npgsql.EntityFrameworkCore.PostgreSQL`
@@ -43,5 +49,7 @@ dotnet ef database update --context EmployeeContext
 ```
 
 ref : [https://ithelp.ithome.com.tw/articles/10235984](https://ithelp.ithome.com.tw/articles/10235984)
+
+ref : [https://stackoverflow.com/questions/46657813/how-to-update-record-using-entity-framework-core](https://stackoverflow.com/questions/46657813/how-to-update-record-using-entity-framework-core)
 
 ref : [https://www.youtube.com/watch?v=r4LlIhyQ9GY&ab_channel=SameerSaini](https://www.youtube.com/watch?v=r4LlIhyQ9GY&ab_channel=SameerSaini)
