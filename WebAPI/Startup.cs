@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using WebAPI.EmployeeData;
 using WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.Middlewares;
 
 namespace WebAPI
 {
@@ -49,10 +50,14 @@ namespace WebAPI
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
+            app.UseMiddleware<TestMiddleware>();
+            
+            // go into endpoints
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                // endpoints.MapHealthChecks("/healthcheck"); // 有問題
             });
         }
     }
