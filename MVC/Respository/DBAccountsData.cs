@@ -47,7 +47,6 @@ namespace MVC.Respository
         {
             this._accountContext.ChangeTracker.DetectChanges();
             _logger.LogInformation(this._accountContext.ChangeTracker.DebugView.LongView);
-            // this._accountContext.Accounts.AsNoTracking();
             this._accountContext.Accounts.Remove(account);
             this._accountContext.SaveChanges();
         }

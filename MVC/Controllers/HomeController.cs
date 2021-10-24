@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVC.Models;
+using Newtonsoft.Json;
 
 namespace MVC.Controllers
 {
@@ -21,18 +23,32 @@ namespace MVC.Controllers
 
         public IActionResult Index()
         {
+            var code = Request.Query["code"];
+            if (!String.IsNullOrEmpty(code))
+            {
+                Console.WriteLine("code: " + code);
+
+                // get token
+                var token = Utility.GetTokenFromCode(
+                    code,
+                    "536062935773-e1hvscne4ead0kk62fho999kc179rhhj.apps.googleusercontent.com",
+                    "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",
+                    "https://localhost:5001/"
+                    );
+                // Console.WriteLine("token: " + JsonConvert.SerializeObject(token));
+
+                var userInfo = Utility.GetUserInfo(token.access_token);
+                // Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(userInfo));
+                var DisplayJSON = Newtonsoft.Json.JsonConvert.SerializeObject(userInfo, Newtonsoft.Json.Formatting.Indented); // display
+                Console.WriteLine(DisplayJSON);
+
+            }
             return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [HttpGet]
-        [Route("api/v1/test")]
-        public IActionResult Account() {
-            return StatusCode((int)HttpStatusCode.OK, "test123");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
