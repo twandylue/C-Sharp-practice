@@ -21,6 +21,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        [Route("api/[controller]/healthy")]
+        public IActionResult Test()
+        {
+            Console.WriteLine("healthy");
+            return Ok("healthy");
+        }
+
+        [HttpGet]
         [Route("api/[controller]")]
         public IActionResult GetEmployees()
         {
