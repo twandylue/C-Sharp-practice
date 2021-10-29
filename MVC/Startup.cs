@@ -11,7 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVC.Models;
 using MVC.Respository;
-
+using HotChocolate;
+using MVC.GraphQL;
 namespace MVC
 {
     public class Startup
@@ -28,8 +29,11 @@ namespace MVC
         {
             services.AddControllers();
             services.AddControllersWithViews();
-            services.AddScoped<IAccountData, DBAccountsData>(); // DI 
-            services.AddDbContextPool<AccountContext>(options => {
+            services.AddGraphQLServer()
+                    .AddQueryType<Query>()
+                    .AddMutationType<Mutation>();
+            // services.AddScoped<IAccountData, DBAccountsData>(); // DI 
+            services.AddPooledDbContextFactory<PostgresDBContext>(options => {
                 options.UseNpgsql(Configuration.GetConnectionString("PostgresConnectionString"));
                 options.EnableSensitiveDataLogging();
             });
@@ -60,6 +64,7 @@ namespace MVC
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapGraphQL();
             });
         }
     }

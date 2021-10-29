@@ -11,9 +11,9 @@ namespace MVC.Respository
 {
     public class DBAccountsData : IAccountData
     {
-        private AccountContext _accountContext;
+        private PostgresDBContext _accountContext;
         private readonly ILogger<DBAccountsData> _logger;
-        public DBAccountsData(AccountContext accountContext, ILogger<DBAccountsData> logger)
+        public DBAccountsData(PostgresDBContext accountContext, ILogger<DBAccountsData> logger)
         {
             _accountContext = accountContext;
             _logger = logger;
