@@ -29,11 +29,20 @@ namespace MVC
         {
             services.AddControllers();
             services.AddControllersWithViews();
-            services.AddGraphQLServer()
-                    .AddQueryType<Query>()
-                    .AddMutationType<Mutation>();
-            // services.AddScoped<IAccountData, DBAccountsData>(); // DI 
-            services.AddPooledDbContextFactory<PostgresDBContext>(options => {
+            services
+                .AddGraphQLServer()
+                .AddQueryType<Query>();
+                // .AddMutationType<Mutation>();
+                
+            services.AddScoped<IAccountData, DBAccountsData>(); // DI // ! 待釐清跟生命週期的關係 (AddPooledDbContextFactory)
+            // services.AddPooledDbContextFactory<PostgresDBContext>(options => {
+            //     options.UseNpgsql(Configuration.GetConnectionString("PostgresConnectionString"));
+            //     options.EnableSensitiveDataLogging();
+            // });
+            
+            // ! 待釐清跟生命週期的關係
+            services.AddDbContextPool<PostgresDBContext>(options =>
+            {
                 options.UseNpgsql(Configuration.GetConnectionString("PostgresConnectionString"));
                 options.EnableSensitiveDataLogging();
             });
@@ -64,7 +73,8 @@ namespace MVC
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapGraphQL();
+                // endpoints.MapGraphQL(); // * enable graphql
+                // ! 待釐清跟生命週期的關係
             });
         }
     }

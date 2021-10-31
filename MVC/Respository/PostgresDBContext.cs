@@ -13,26 +13,22 @@ namespace MVC.Respository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Attendee>().HasIndex(a => a.UserName).IsUnique();
-            // Many-to-many: Session <-> Attendee
             modelBuilder
-                .Entity<SessionAttendee>()
-                .HasKey(ca => new { ca.SessionId, ca.AttendeeId });
+                .Entity<Platform>()
+                .HasMany(p => p.Commands)
+                .WithOne(p => p.Platform!)
+                .HasForeignKey(p => p.PlatformId);
 
-            // Many-to-many: Speaker <-> Session
             modelBuilder
-                .Entity<SessionSpeaker>()
-                .HasKey(ss => new { ss.SessionId, ss.SpeakerId });
-
+                .Entity<Command>()
+                .HasOne(p => p.Platform)
+                .WithMany(p => p.Commands)
+                .HasForeignKey(p => p.PlatformId);
         }
 
         public DbSet<AccountModel> Accounts { get; set; }
-        public DbSet<Session> Sessions { get; set; } = default!;
+        public DbSet<Platform> Platforms { get; set; }
+        public DbSet<Command> Commands { get; set; }
 
-        public DbSet<Track> Tracks { get; set; } = default!;
-
-        public DbSet<Speaker> Speakers { get; set; } = default!;
-
-        public DbSet<Attendee> Attendees { get; set; } = default!;
     }
 }

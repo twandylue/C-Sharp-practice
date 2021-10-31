@@ -11,22 +11,22 @@ namespace MVC.Respository
 {
     public class DBAccountsData : IAccountData
     {
-        private PostgresDBContext _accountContext;
+        private PostgresDBContext _appDBContext;
         private readonly ILogger<DBAccountsData> _logger;
-        public DBAccountsData(PostgresDBContext accountContext, ILogger<DBAccountsData> logger)
+        public DBAccountsData(PostgresDBContext context, ILogger<DBAccountsData> logger)
         {
-            _accountContext = accountContext;
+            _appDBContext = context;
             _logger = logger;
         }
         public List<AccountModel> GetAccounts()
         {
-            return this._accountContext.Accounts.ToList();
+            return this._appDBContext.Accounts.ToList();
         }
         public AccountModel GetAccount(String accountName)
         {
             _logger.LogInformation("target: " + accountName);
-            // var ret = from a in _accountContext.Accounts where a.AccountName == accountName select a; // linq
-            var ret = this._accountContext.Accounts.Where(a => a.AccountName == accountName).AsNoTracking().ToList(); // arrow func
+            // var ret = from a in _appDBContext.Accounts where a.AccountName == accountName select a; // linq
+            var ret = this._appDBContext.Accounts.Where(a => a.AccountName == accountName).AsNoTracking().ToList(); // arrow func
             _logger.LogInformation(JsonSerializer.Serialize(ret));
             var resAccount = new AccountModel();
             foreach (AccountModel account in ret)
@@ -39,19 +39,19 @@ namespace MVC.Respository
         }
         public AccountModel AddAccount(AccountModel account)
         {
-            this._accountContext.Accounts.Add(account);
-            this._accountContext.SaveChanges();
+            this._appDBContext.Accounts.Add(account);
+            this._appDBContext.SaveChanges();
             return account;
         }
         public void DeleteAccount(AccountModel account)
         {
-            this._accountContext.ChangeTracker.DetectChanges();
-            _logger.LogInformation(this._accountContext.ChangeTracker.DebugView.LongView);
-            this._accountContext.Accounts.Remove(account);
-            this._accountContext.SaveChanges();
+            this._appDBContext.ChangeTracker.DetectChanges();
+            _logger.LogInformation(this._appDBContext.ChangeTracker.DebugView.LongView);
+            this._appDBContext.Accounts.Remove(account);
+            this._appDBContext.SaveChanges();
         }
         // public AccountModel EditAccount(AccountModel account) {
-        //     var ExistingAccount = this._accountContext.Accounts.Find(account.AccountName); // 待改
+        //     var ExistingAccount = this._appDBContext.Accounts.Find(account.AccountName); // 待改
         //     if (ExistingAccount != null) {
         //         ExistingAccount.AccountName = 
         //     }
