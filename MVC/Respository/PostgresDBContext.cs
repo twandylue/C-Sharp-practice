@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using MVC.GraphQL.Data;
 using MVC.Models;
 
 namespace MVC.Respository
