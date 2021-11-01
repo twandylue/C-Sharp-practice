@@ -6,10 +6,10 @@ namespace MVC.Respository
 {
     public interface IAccountData
     {
-        List<AccountModel> GetAccounts();
-        AccountModel GetAccount(String accountName);
-        AccountModel AddAccount(AccountModel account);
-        void DeleteAccount(AccountModel account);
-        // AccountModel EditAccount(AccountModel account);
+        List<Account> GetAccounts();
+        Account GetAccount(String accountName);
+        Account AddAccount(Account account);
+        void DeleteAccount(Account account);
+        // Account EditAccount(Account account);
     }
 }

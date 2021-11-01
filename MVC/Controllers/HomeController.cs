@@ -35,13 +35,11 @@ namespace MVC.Controllers
                     "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",
                     "https://localhost:5001/"
                     );
-                // Console.WriteLine("token: " + JsonConvert.SerializeObject(token));
+                Console.WriteLine(JsonConvert.SerializeObject(token, Formatting.Indented));
 
                 var userInfo = Utility.GetUserInfo(token.access_token);
-                // Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(userInfo));
-                var DisplayJSON = Newtonsoft.Json.JsonConvert.SerializeObject(userInfo, Newtonsoft.Json.Formatting.Indented); // display
+                var DisplayJSON = Newtonsoft.Json.JsonConvert.SerializeObject(userInfo, Formatting.Indented); // display
                 Console.WriteLine(DisplayJSON);
-
             }
             return View();
         }

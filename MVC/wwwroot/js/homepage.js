@@ -8,12 +8,12 @@ function Login() {
     url += "scope=email profile&";
     url += "redirect_uri=https://localhost:5001/&";
     url += "response_type=code&";
+    // url += "response_type=token&"; //* for token
     url += "client_id=536062935773-e1hvscne4ead0kk62fho999kc179rhhj.apps.googleusercontent.com&";
     url += "state=12345&";
-    url += "approval_prompt=force&";
     window.location.href = url;
 }
-// Login()
+
 const button = document.querySelector("#LoginButton")
 button.addEventListener("click", ()=> {Login()});
 

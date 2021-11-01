@@ -25,9 +25,10 @@ namespace MVC.Respository
                 .HasForeignKey(p => p.PlatformId);
         }
 
-        public DbSet<AccountModel> Accounts { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<Command> Commands { get; set; }
-
+        public DbSet<GoogleUserInfo> GoogleUserInfos {get; set;}
+        
     }
 }

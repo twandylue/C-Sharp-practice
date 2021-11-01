@@ -15,18 +15,6 @@ namespace MVC.Models
         public string token_type { get; set; }
         public string id_token { get; set; }
     }
-    public class UserInfoResult
-    {
-        public string id { get; set; }
-        public string email { get; set; }
-        public bool verified_email { get; set; }
-        public string name { get; set; }
-        public string given_name { get; set; }
-        public string family_name { get; set; }
-        public string link { get; set; }
-        public string picture { get; set; }
-        public string locale { get; set; }
-    }
     public class Utility
     {
         public static GetTokenFromCodeResult GetTokenFromCode(string code, string clientId, string clientSecret, string redirectURI)
@@ -51,7 +39,7 @@ namespace MVC.Models
                 // get result
                 string jsonString = System.Text.Encoding.UTF8.GetString(bResult);
 
-                var GetTokenFromCodeResult = Newtonsoft.Json.JsonConvert.DeserializeObject<GetTokenFromCodeResult>(jsonString);
+                var GetTokenFromCodeResult = JsonConvert.DeserializeObject<GetTokenFromCodeResult>(jsonString);
                 return GetTokenFromCodeResult;
 
             }
@@ -65,7 +53,7 @@ namespace MVC.Models
             }
         }
 
-        public static UserInfoResult GetUserInfo(string token)
+        public static GoogleUserInfo GetUserInfo(string token)
         {
             try
             {
@@ -78,7 +66,7 @@ namespace MVC.Models
                 string jsonString = wc.DownloadString("https://www.googleapis.com/oauth2/v1/userinfo");
 
                 // parsing Json
-                var result = Newtonsoft.Json.JsonConvert.DeserializeObject<UserInfoResult>(jsonString);
+                var result = Newtonsoft.Json.JsonConvert.DeserializeObject<GoogleUserInfo>(jsonString);
                 return result;
             }
             catch (WebException ex)

@@ -33,7 +33,7 @@ namespace MVC.Controllers
 
         [HttpPost]
         [Route("/api/v1/addaccount")]
-        public IActionResult AddAccount([FromBody] AccountModel account)
+        public IActionResult AddAccount([FromBody] Account account)
         {
             if (this._accountData.GetAccount(account.AccountName).Id == 0)
             {
@@ -45,7 +45,7 @@ namespace MVC.Controllers
         }
         [HttpPost]
         [Route("/api/v1/deleteaccont")]
-        public IActionResult DeleteAccount([FromBody] AccountModel account)
+        public IActionResult DeleteAccount([FromBody] Account account)
         {
             var ExistingAccount = this._accountData.GetAccount(account.AccountName);
             if (ExistingAccount.Id != 0)

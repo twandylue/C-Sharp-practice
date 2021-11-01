@@ -4,8 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MVC.Models
 {
-    // [Index(nameof(AccountName), IsUnique = true)]
-    public class AccountModel
+    public class Account
     {
         [Key]
         public int Id { get; set; }
