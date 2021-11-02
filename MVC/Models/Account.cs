@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
 
 namespace MVC.Models
 {
+    // [Index(nameof(AccountName), IsUnique = true)]
     public class Account
     {
         [Key]
@@ -12,5 +13,6 @@ namespace MVC.Models
         public String AccountName { get; set; }
         [Required]
         public String Password { get; set; }
+        public ICollection<sso_account_binding> bindings { get; set; } = new List<sso_account_binding>();
     }
 }

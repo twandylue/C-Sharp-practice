@@ -36,8 +36,8 @@ namespace MVC.Respository
                 resAccount.Password = account.Password;
             }
             return resAccount;
-            
-            /* 另類寫法
+
+            /* 另類寫法 但會出問題，當找不到符合條件的資料時，會有問題
             _logger.LogInformation("target: " + accountName);
             var ret = this._appDBContext.Accounts.Where(a => a.AccountName == accountName).AsNoTracking().ToList<Account>(); // arrow func
             _logger.LogInformation(JsonConvert.SerializeObject(ret, Formatting.Indented));

@@ -78,5 +78,28 @@ namespace MVC.Models
                 }
             }
         }
+
+        public static string GetGoogleSSOUrlforSingup(Account account)
+        {
+            string client_id = "536062935773-e1hvscne4ead0kk62fho999kc179rhhj.apps.googleusercontent.com";
+            string state = JsonConvert.SerializeObject(new StateInfo
+            {
+                idp = 2,
+                type="Singup",
+                accountId = account.Id,
+            });
+
+            // string redirectUri = "https://localhost:5001/";
+            string redirectUri = "https://localhost:5001/api/v1/checkPortalSSO";
+
+            string url = "https://accounts.google.com/o/oauth2/v2/auth?";
+            url += "scope=email profile&";
+            url += $"redirect_uri={redirectUri}&";
+            url += "response_type=code&";
+            url += $"client_id={client_id}&";
+            url += $"state={state}&";
+
+            return url;
+        }
     }
 }

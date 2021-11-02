@@ -1,8 +1,9 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MVC.Models
 {
     public class GoogleUserInfo
     {
-        public string accountName {get; set;}
         public string id { get; set; }
         public string email { get; set; }
         public bool verified_email { get; set; }

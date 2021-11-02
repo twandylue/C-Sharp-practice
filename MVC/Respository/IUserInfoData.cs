@@ -7,7 +7,7 @@ namespace MVC.Respository
     public interface IUserInfoData
     {
         List<GoogleUserInfo> GetUserInfos ();
-        GoogleUserInfo GetUserInfo (string accountName);
+        // GoogleUserInfo GetUserInfo (string accountName);
         GoogleUserInfo AddUserInfo (string accountName, GoogleUserInfo googleUserInfo);
         // void DeleteGoogleUserInfo(Account account);
     }

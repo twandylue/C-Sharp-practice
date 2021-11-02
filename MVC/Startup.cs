@@ -35,6 +35,7 @@ namespace MVC
                 // .AddMutationType<Mutation>();
                 
             services.AddScoped<IAccountData, DBAccountsData>(); // DI // ! 待釐清跟生命週期的關係 (AddPooledDbContextFactory)
+            services.AddScoped<ISSOAccount, DBSSOAccountData>(); // DI
             // services.AddPooledDbContextFactory<PostgresDBContext>(options => {
             //     options.UseNpgsql(Configuration.GetConnectionString("PostgresConnectionString"));
             //     options.EnableSensitiveDataLogging();

@@ -21,25 +21,20 @@ namespace MVC.Respository
         {
             return _DbContext.GoogleUserInfos.ToList<GoogleUserInfo>();
         }
-        public GoogleUserInfo GetUserInfo(string accountName)
-        {
-            _logger.LogInformation("account name: " + accountName);
-            // var ret = from a in _DbContext.GoogleUserInfos where a.accountName == accountName select a;
-            var ret = this._DbContext.GoogleUserInfos.Where(a => a.accountName == accountName).AsNoTracking().ToList<GoogleUserInfo>();
-            _logger.LogInformation(JsonConvert.SerializeObject(ret, Formatting.Indented));
-            if (ret.Count == 0) return null;
-            return ret[0];
-        }
+        // public GoogleUserInfo GetUserInfo(string accountName)
+        // {
+        //     _logger.LogInformation("account name: " + accountName);
+        //     // var ret = from a in _DbContext.GoogleUserInfos where a.accountName == accountName select a;
+        //     var ret = this._DbContext.GoogleUserInfos.Where(a => a.accountName == accountName).AsNoTracking().ToList<GoogleUserInfo>();
+        //     _logger.LogInformation(JsonConvert.SerializeObject(ret, Formatting.Indented));
+        //     if (ret.Count == 0) return null;
+        //     return ret[0];
+        // }
         public GoogleUserInfo AddUserInfo(string accountName, GoogleUserInfo googleUserInfo)
         {
-            var account = this.GetUserInfo(accountName);
-            if (account == null)
-            {
-                this._DbContext.GoogleUserInfos.Add(googleUserInfo);
-                this._DbContext.SaveChangesAsync();
-                return googleUserInfo;
-            }
-            return null;
+            this._DbContext.GoogleUserInfos.Add(googleUserInfo);
+            this._DbContext.SaveChangesAsync();
+            return googleUserInfo;
         }
     }
 }
