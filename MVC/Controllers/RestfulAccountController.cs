@@ -41,12 +41,16 @@ namespace MVC.Controllers
             if (this._accountData.GetAccount(account.AccountName).Id == 0)
             {
                 this._accountData.AddAccount(account);
-                string urlForBinding = Utility.GetGoogleSSOUrlforSingup(account);
-                // return StatusCode((int)HttpStatusCode.Created, HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + account.AccountName);
-                return StatusCode((int)HttpStatusCode.Created, new { redirect_Uri = urlForBinding });
+                StateInfo stateInfo = new StateInfo
+                {
+                    idp = 2,
+                    type = "Singup",
+                    accountId = account.Id
+                };
+                string SSOUrl = Utility.GetGoogleSSOUrl(stateInfo);
+                return StatusCode((int)HttpStatusCode.Created, new { redirect_Uri = SSOUrl });
             }
-            return StatusCode((int)HttpStatusCode.BadRequest, new { message = "Account already be used!" });
-
+            return StatusCode((int)HttpStatusCode.BadRequest, new { message = "Account already be registed!" });
         }
 
         [HttpPost]
@@ -63,6 +67,20 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
+        [Route("api/v1/LoginSSO")]
+        public IActionResult LoginSSO()
+        {
+            // TODO idp = 2 ==> google 有待規劃
+            StateInfo stateInfo = new StateInfo
+            {
+                idp = 2,
+                type = "Login"
+            };
+            string SSOUrl = Utility.GetGoogleSSOUrl(stateInfo);
+            return StatusCode((int)HttpStatusCode.OK, new { redirect_Uri = SSOUrl });
+        }
+
+        [HttpGet]
         [Route("/api/v1/checkPortalSSO")]
         public IActionResult CheckProtalSSO()
         {
@@ -74,10 +92,9 @@ namespace MVC.Controllers
             {
                 message = "query parameter wrong."
             });
-
+            // TODO 可以移到env
             string client_id = "536062935773-e1hvscne4ead0kk62fho999kc179rhhj.apps.googleusercontent.com";
             string client_secret = "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";
-            // string redirect_Uri = "https://localhost:5001/";
             string redirect_Uri = "https://localhost:5001/api/v1/checkPortalSSO";
 
             // get token
@@ -90,13 +107,13 @@ namespace MVC.Controllers
 
             try
             {
-                string state = rawState.Replace("\\\"","\"");
+                string state = rawState.Replace("\\\"", "\"");
                 Console.WriteLine(state);
                 StateInfo stateInfo = JsonConvert.DeserializeObject<StateInfo>(state);
 
                 if (stateInfo.type == "Singup")
                 {
-                    // ! bindingRelation 有待抽象化(GoogleId)
+                    // TODO bindingRelation 有待抽象化(GoogleId)
                     sso_account_binding bindingRelationShip = new sso_account_binding
                     {
                         idp = stateInfo.idp,
@@ -108,7 +125,7 @@ namespace MVC.Controllers
                 }
                 else if (stateInfo.type == "Login")
                 {
-                    (bool isSuccess, string message) = this._ssoAccountData.LoginSSOAccount(userInfo.id);
+                    (bool isSuccess, string message) = this._ssoAccountData.LoginSSOAccount(stateInfo, userInfo.id);
                     HttpStatusCode httpStatus = new HttpStatusCode();
                     httpStatus = isSuccess ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
                     return StatusCode((int)httpStatus, new { message = message });

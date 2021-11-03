@@ -21,6 +21,7 @@ namespace MVC.Respository
         {
             return _DbContext.GoogleUserInfos.ToList<GoogleUserInfo>();
         }
+        // TODO 待新增功能
         // public GoogleUserInfo GetUserInfo(string accountName)
         // {
         //     _logger.LogInformation("account name: " + accountName);

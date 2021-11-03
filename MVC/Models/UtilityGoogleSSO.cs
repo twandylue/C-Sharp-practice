@@ -79,17 +79,10 @@ namespace MVC.Models
             }
         }
 
-        public static string GetGoogleSSOUrlforSingup(Account account)
+        public static string GetGoogleSSOUrl(StateInfo stateInfo)
         {
+            string state = JsonConvert.SerializeObject(stateInfo);
             string client_id = "536062935773-e1hvscne4ead0kk62fho999kc179rhhj.apps.googleusercontent.com";
-            string state = JsonConvert.SerializeObject(new StateInfo
-            {
-                idp = 2,
-                type="Singup",
-                accountId = account.Id,
-            });
-
-            // string redirectUri = "https://localhost:5001/";
             string redirectUri = "https://localhost:5001/api/v1/checkPortalSSO";
 
             string url = "https://accounts.google.com/o/oauth2/v2/auth?";

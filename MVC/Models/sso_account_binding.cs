@@ -12,6 +12,6 @@ namespace MVC.Models
         public string sourceId { get; set; }
         [Required]
         public int accountId { get; set; }
-        public Account account {get; set;}
+        public Account account {get; set;} // for fluent api
     }
 }

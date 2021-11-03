@@ -4,6 +4,6 @@ namespace MVC.Models
     {
         public int idp { get; set; }
         public string type { get; set; }
-        public int accountId { get; set; }
+        public int accountId { get; set; } = 0;
     }
 }
