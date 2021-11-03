@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MVC.Migrations
 {
     [DbContext(typeof(PostgresDBContext))]
-    [Migration("20211102094633_sso_v1")]
+    [Migration("20211103021520_sso_v1")]
     partial class sso_v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,12 +70,7 @@ namespace MVC.Migrations
 
             modelBuilder.Entity("MVC.Models.GoogleUserInfo", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("GoogleId")
+                    b.Property<string>("id")
                         .HasColumnType("text");
 
                     b.Property<string>("email")
@@ -102,7 +97,7 @@ namespace MVC.Migrations
                     b.Property<bool>("verified_email")
                         .HasColumnType("boolean");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("GoogleUserInfos");
                 });

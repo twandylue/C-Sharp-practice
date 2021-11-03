@@ -23,24 +23,6 @@ namespace MVC.Controllers
 
         public IActionResult Index()
         {
-            var code = Request.Query["code"];
-            if (!String.IsNullOrEmpty(code))
-            {
-                Console.WriteLine("code: " + code);
-
-                // get token
-                var token = Utility.GetTokenFromCode(
-                    code,
-                    "536062935773-e1hvscne4ead0kk62fho999kc179rhhj.apps.googleusercontent.com",
-                    "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",
-                    "https://localhost:5001/"
-                    );
-                Console.WriteLine(JsonConvert.SerializeObject(token, Formatting.Indented));
-
-                var userInfo = Utility.GetUserInfo(token.access_token);
-                var DisplayJSON = Newtonsoft.Json.JsonConvert.SerializeObject(userInfo, Formatting.Indented); // display
-                Console.WriteLine(DisplayJSON);
-            }
             return View();
         }
 

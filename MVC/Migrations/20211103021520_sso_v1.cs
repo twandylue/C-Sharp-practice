@@ -25,9 +25,7 @@ namespace MVC.Migrations
                 name: "GoogleUserInfos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    GoogleId = table.Column<string>(type: "text", nullable: true),
+                    id = table.Column<string>(type: "text", nullable: false),
                     email = table.Column<string>(type: "text", nullable: true),
                     verified_email = table.Column<bool>(type: "boolean", nullable: false),
                     name = table.Column<string>(type: "text", nullable: true),
@@ -39,7 +37,7 @@ namespace MVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GoogleUserInfos", x => x.Id);
+                    table.PrimaryKey("PK_GoogleUserInfos", x => x.id);
                 });
 
             migrationBuilder.CreateTable(

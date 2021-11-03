@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using MVC.Models;
-using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -36,14 +35,6 @@ namespace MVC.Respository
                 resAccount.Password = account.Password;
             }
             return resAccount;
-
-            /* 另類寫法 但會出問題，當找不到符合條件的資料時，會有問題
-            _logger.LogInformation("target: " + accountName);
-            var ret = this._appDBContext.Accounts.Where(a => a.AccountName == accountName).AsNoTracking().ToList<Account>(); // arrow func
-            _logger.LogInformation(JsonConvert.SerializeObject(ret, Formatting.Indented));
-            if (ret.Count == 0) _logger.LogInformation("test------");
-            return ret[0];
-            */
         }
         public Account AddAccount(Account account)
         {
@@ -58,11 +49,14 @@ namespace MVC.Respository
             this._appDBContext.Accounts.Remove(account);
             this._appDBContext.SaveChanges();
         }
-        // public Account EditAccount(Account account) {
-        //     var ExistingAccount = this._appDBContext.Accounts.Find(account.AccountName); // 待改
-        //     if (ExistingAccount != null) {
-        //         ExistingAccount.AccountName = 
-        //     }
-        // }
+        public (bool, Account) CheckAccount(Account account)
+        {
+            var ret = this._appDBContext.Accounts.Where(
+                ac => ac.AccountName == account.AccountName && 
+                ac.Password == account.Password
+            ).ToList();
+            if (ret.Count == 0) return (false, null);
+            return (true, ret[0]);
+        }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
@@ -16,38 +15,41 @@ namespace MVC.Respository
             _appDbContext = context;
             _logger = logger;
         }
-        public sso_account_binding BindAccount(sso_account_binding bindingRelationShip)
+        public (bool, string) BindAccount(sso_account_binding bindingRelationShip)
         {
+            var ret = this._appDbContext.sso_account_binding.Where(s => s.sourceId == bindingRelationShip.sourceId && s.idp == bindingRelationShip.idp).ToList();
+            if (ret.Count != 0) return (false, "sso id is already used");
             this._appDbContext.sso_account_binding.Add(bindingRelationShip);
             this._appDbContext.SaveChanges();
-            return bindingRelationShip;
+            return (true, "binding sso id success");
         }
         public (bool, string) LoginSSOAccount(StateInfo stateInfo, string sourceId)
         {
-            var ret = this._appDbContext.sso_account_binding.Where(s => s.sourceId == sourceId && s.idp == stateInfo.idp ).ToList();
+            var ret = this._appDbContext.sso_account_binding.Where(s => s.sourceId == sourceId && s.idp == stateInfo.idp).ToList();
             _logger.LogInformation(JsonConvert.SerializeObject(ret, Formatting.Indented));
-            var testJoin = this._appDbContext.sso_account_binding
-                .Join(
-                    this._appDbContext.Accounts,
-                    bindInfo => bindInfo.accountId,
-                    account => account.Id,
-                    (bindInfo, account) => new loginInfo {
-                        // _bindinfo = bindInfo,
-                        _account = account
-                    }
-                ).ToList();
-            // TODO inner join and outter join 待補 有誤
-            // todo 轉跳頁面
-            _logger.LogInformation(JsonConvert.SerializeObject(testJoin[0], Formatting.Indented));
-            // foreach (var item in testJoin) _logger.LogInformation(JsonConvert.SerializeObject(item));
-
             if (ret.Count == 0) return (false, "Haven't Singup");
-            return (true, "You get a token...");
+
+            var accountInfos = this._appDbContext.Accounts
+                .Join(
+                    this._appDbContext.sso_account_binding,
+                    account => account.Id,
+                    binding => binding.accountId,
+                    (account, binding) => new accountInfo
+                    {
+                        _accountId = account.Id,
+                        _accountName = account.AccountName
+                    }
+                ).ToList()[0];
+
+            _logger.LogInformation(JsonConvert.SerializeObject(accountInfos, Formatting.Indented));
+
+            return (true, $"Hi! {accountInfos._accountName}. Welcome back! (get a Portal token...)");
         }
     }
 
-    public class loginInfo {
-        public sso_account_binding _bindinfo {get; set;}
-        public Account _account { get; set; }
+    public class accountInfo
+    {
+        public int _accountId {get; set;}
+        public string _accountName { get; set; }
     }
 }

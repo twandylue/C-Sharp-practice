@@ -1,30 +1,50 @@
-function Login() {
-    /*
-    To pass several parameters to your redirect uri, have them stored in state parameter before calling Oauth url, the url after authorization will send the same parameters to your redirect uri as state=THE_STATE_PARAMETERS
-    ref: https://stackoverflow.com/questions/7722062/google-oauth-2-0-redirect-uri-with-several-parameters
-    */ 
+const LoginButton = document.querySelector("#LoginButton")
+LoginButton.addEventListener("click", ()=> {Login()});
 
-    var url = "https://accounts.google.com/o/oauth2/v2/auth?";
-    url += "scope=email profile&";
-    url += "redirect_uri=https://localhost:5001/&";
-    url += "response_type=code&";
-    // url += "response_type=token&"; //* for token
-    url += "client_id=536062935773-e1hvscne4ead0kk62fho999kc179rhhj.apps.googleusercontent.com&";
-    url += "state=12345&";
-    window.location.href = url;
-}
+const SignButton = document.querySelector('#SignupButton')
 
-const button = document.querySelector("#LoginButton")
-button.addEventListener("click", ()=> {Login()});
-
-const GetAccounts = async () => {
-    const res = await fetch("/api/v1/accounts", {
+const Login = async () => {
+    const res = await fetch("api/v1/LoginSSO", {
         method: "GET",
         headers: new Headers({
             "Content-Type": "application/json",
         })
     })
-    const accounts = await res.json()
-    console.log(accounts);
+    const {redirect_Uri} = await res.json()
+    window.location.href = redirect_Uri
 }
-// GetAccounts();
+
+const sendUrl = async () => {
+    const urlSearchParams = new URLSearchParams(window.location.search)
+    const params = Object.fromEntries(urlSearchParams.entries());
+    if (params.code !== undefined || params.state !== undefined) {
+        const url = `/api/v1/checkPortalSSO?code=${params.code}&state=${params.state}` 
+        const res = await fetch(url, {
+            method: "GET",
+            headers: new Headers({
+                "Content-Type": "application/json",
+            })
+        })
+        const {message} = await res.json()
+        if (res.status === 200) {
+            Swal.fire({
+                icon: "success",
+                title: "登入成功",
+                text: message,
+                showCancelButton: true,
+                confirmButtonText: "確定",
+                cancelButtonText: "取消"
+            })
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "登入失敗",
+                text: message,
+                confirmButtonText: "確定",
+                cancelButtonText: "取消"
+            })
+        }
+    }
+    
+}
+sendUrl();

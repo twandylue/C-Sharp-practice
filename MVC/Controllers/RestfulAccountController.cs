@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
+using MVC.Models.Response;
 using MVC.Respository;
 using Newtonsoft.Json;
 
@@ -30,7 +31,7 @@ namespace MVC.Controllers
         public IActionResult GetAccount(String AccountName)
         {
             var account = this._accountData.GetAccount(AccountName);
-            if (account.Id == 0) return StatusCode((int)HttpStatusCode.BadRequest, new { message = "Can't find account." });
+            if (account.Id == 0) return StatusCode((int)HttpStatusCode.BadRequest, new FailedResponse { message = "Can't find the account." });
             return StatusCode((int)HttpStatusCode.OK, account);
         }
 
@@ -40,17 +41,35 @@ namespace MVC.Controllers
         {
             if (this._accountData.GetAccount(account.AccountName).Id == 0)
             {
-                this._accountData.AddAccount(account);
+                Account _newAccoutn = this._accountData.AddAccount(account);
+                // TODO idp 有待抽象化
                 StateInfo stateInfo = new StateInfo
                 {
                     idp = 2,
                     type = "Singup",
-                    accountId = account.Id
+                    accountId = _newAccoutn.Id
                 };
                 string SSOUrl = Utility.GetGoogleSSOUrl(stateInfo);
-                return StatusCode((int)HttpStatusCode.Created, new { redirect_Uri = SSOUrl });
+                return StatusCode((int)HttpStatusCode.Created, new SuccessResponse { redirect_Uri = SSOUrl });
             }
-            return StatusCode((int)HttpStatusCode.BadRequest, new { message = "Account already be registed!" });
+            return StatusCode((int)HttpStatusCode.BadRequest, new FailedResponse { message = "Account already be registed!" });
+        }
+
+        [HttpPost]
+        [Route("/api/v1/getBindingUrl")]
+        public IActionResult GetBindingUrl([FromBody] Account account)
+        {
+            (bool isSuccess, Account _account) = this._accountData.CheckAccount(account);
+            if (!isSuccess) return StatusCode((int)HttpStatusCode.BadRequest, new FailedResponse { message = "Account or Password is wrong" });
+            // TODO idp 有待抽象化
+            StateInfo stateInfo = new StateInfo
+            {
+                idp = 2,
+                type = "Singup",
+                accountId = _account.Id
+            };
+            string SSOUrl = Utility.GetGoogleSSOUrl(stateInfo);
+            return StatusCode((int)HttpStatusCode.OK, new SuccessResponse { redirect_Uri = SSOUrl });
         }
 
         [HttpPost]
@@ -61,23 +80,23 @@ namespace MVC.Controllers
             if (ExistingAccount.Id != 0)
             {
                 this._accountData.DeleteAccount(ExistingAccount);
-                return StatusCode((int)HttpStatusCode.OK, new { message = $"{account.AccountName} was deleted." });
+                return StatusCode((int)HttpStatusCode.OK, new SuccessResponse { message = $"{account.AccountName} was deleted." });
             }
-            return StatusCode((int)HttpStatusCode.NotFound, new { message = "Can't find account" });
+            return StatusCode((int)HttpStatusCode.NotFound, new FailedResponse { message = "Can't find account" });
         }
 
         [HttpGet]
         [Route("api/v1/LoginSSO")]
         public IActionResult LoginSSO()
         {
-            // TODO idp = 2 ==> google 有待規劃
+            // TODO idp 有待抽象化
             StateInfo stateInfo = new StateInfo
             {
                 idp = 2,
                 type = "Login"
             };
             string SSOUrl = Utility.GetGoogleSSOUrl(stateInfo);
-            return StatusCode((int)HttpStatusCode.OK, new { redirect_Uri = SSOUrl });
+            return StatusCode((int)HttpStatusCode.OK, new SuccessResponse { redirect_Uri = SSOUrl });
         }
 
         [HttpGet]
@@ -92,10 +111,12 @@ namespace MVC.Controllers
             {
                 message = "query parameter wrong."
             });
+
             // TODO 可以移到env
             string client_id = "536062935773-e1hvscne4ead0kk62fho999kc179rhhj.apps.googleusercontent.com";
             string client_secret = "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";
-            string redirect_Uri = "https://localhost:5001/api/v1/checkPortalSSO";
+            // string redirect_Uri = "https://localhost:5001/api/v1/checkPortalSSO";
+            string redirect_Uri = "https://localhost:5001/";
 
             // get token
             var token = Utility.GetTokenFromCode(code, client_id, client_secret, redirect_Uri);
@@ -108,27 +129,27 @@ namespace MVC.Controllers
             try
             {
                 string state = rawState.Replace("\\\"", "\"");
-                Console.WriteLine(state);
+                // Console.WriteLine(state);
                 StateInfo stateInfo = JsonConvert.DeserializeObject<StateInfo>(state);
 
                 if (stateInfo.type == "Singup")
                 {
-                    // TODO bindingRelation 有待抽象化(GoogleId)
+                    // TODO bindingRelation idp 有待抽象化
                     sso_account_binding bindingRelationShip = new sso_account_binding
                     {
                         idp = stateInfo.idp,
                         sourceId = userInfo.id,
                         accountId = stateInfo.accountId,
                     };
-                    this._ssoAccountData.BindAccount(bindingRelationShip);
-                    return StatusCode((int)HttpStatusCode.OK, new { message = "Binding account success." });
+                    (bool isSuccess, string message) = this._ssoAccountData.BindAccount(bindingRelationShip);
+                    int statusCode = isSuccess ? (int)HttpStatusCode.OK : (int)HttpStatusCode.BadRequest;
+                    return StatusCode(statusCode, new { message = message });
                 }
                 else if (stateInfo.type == "Login")
                 {
                     (bool isSuccess, string message) = this._ssoAccountData.LoginSSOAccount(stateInfo, userInfo.id);
-                    HttpStatusCode httpStatus = new HttpStatusCode();
-                    httpStatus = isSuccess ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
-                    return StatusCode((int)httpStatus, new { message = message });
+                    int httpStatus = isSuccess ? (int)HttpStatusCode.OK : (int)HttpStatusCode.BadRequest;
+                    return StatusCode(httpStatus, new { message = message });
                 }
 
             }
@@ -136,7 +157,7 @@ namespace MVC.Controllers
             {
                 Console.WriteLine(e);
                 Console.WriteLine("state formate in not json");
-                return StatusCode((int)HttpStatusCode.BadRequest, new { message = "state formate in not json" });
+                return StatusCode((int)HttpStatusCode.BadRequest, new FailedResponse { message = "state formate is not json" });
             }
 
             return StatusCode((int)HttpStatusCode.OK);
