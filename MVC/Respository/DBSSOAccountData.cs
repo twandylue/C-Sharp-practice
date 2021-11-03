@@ -29,12 +29,16 @@ namespace MVC.Respository
             _logger.LogInformation(JsonConvert.SerializeObject(ret, Formatting.Indented));
             if (ret.Count == 0) return (false, "Haven't Singup");
 
-            var accountInfos = this._appDbContext.Accounts
+            var accountInfos = this._appDbContext.sso_account_binding
+                .Where(
+                    s => s.sourceId == sourceId &&
+                    s.idp == stateInfo.idp
+                )
                 .Join(
-                    this._appDbContext.sso_account_binding,
-                    account => account.Id,
+                    this._appDbContext.Accounts,
                     binding => binding.accountId,
-                    (account, binding) => new accountInfo
+                    account => account.Id,
+                    (binding, account) => new accountInfo
                     {
                         _accountId = account.Id,
                         _accountName = account.AccountName
@@ -49,7 +53,7 @@ namespace MVC.Respository
 
     public class accountInfo
     {
-        public int _accountId {get; set;}
+        public int _accountId { get; set; }
         public string _accountName { get; set; }
     }
 }
