@@ -39,10 +39,11 @@ namespace MVC
                 .AddMutationType<Mutation>()
                 .AddType<PlatformType>()
                 .AddType<CommandType>()
+                .AddSubscriptionType<Subscription>()
                 .AddFiltering()
-                .AddSorting();
-            // .AddMutationType<Mutation>();
-
+                .AddSorting()
+                .AddInMemorySubscriptions();
+                
             // services.AddScoped<IAccountData, DBAccountsData>(); // DI // ! 待釐清跟生命週期的關係 (AddPooledDbContextFactory)
             // services.AddScoped<ISSOAccount, DBSSOAccountData>(); // DI
             services.AddPooledDbContextFactory<PostgresDBContext>(options =>
@@ -72,6 +73,9 @@ namespace MVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseWebSockets();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

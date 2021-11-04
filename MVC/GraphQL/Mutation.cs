@@ -5,20 +5,30 @@ using System.Threading.Tasks;
 using MVC.GraphQL.Platforms;
 using MVC.Models;
 using MVC.GraphQL.Commands;
+using HotChocolate.Subscriptions;
+using System.Threading;
 
 namespace MVC.GraphQL
 {
     public class Mutation
     {
         [UseDbContext(typeof(PostgresDBContext))]
-        public async Task<AddPlatformPayload> AddPlatformAsync(AddPlatformInput input, [ScopedService] PostgresDBContext context)
+        public async Task<AddPlatformPayload> AddPlatformAsync(
+            AddPlatformInput input,
+            [ScopedService] PostgresDBContext context,
+            [Service] ITopicEventSender eventSender,
+            CancellationToken cancellationToken
+            )
         {
             var _platform = new Platform
             {
                 Name = input.Name
             };
             context.Platforms.Add(_platform);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
+
+            await eventSender.SendAsync(nameof(Subscription.OnPlatformAdded), _platform, cancellationToken);
+
             return new AddPlatformPayload
             {
                 platform = _platform
