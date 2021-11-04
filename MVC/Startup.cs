@@ -11,8 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVC.Models;
 using MVC.Respository;
-using HotChocolate;
 using MVC.GraphQL;
+using MVC.GraphQL.Platforms;
+using MVC.GraphQL.Commands;
+using HotChocolate;
+using GraphQL.Server.Ui.Voyager;
+
 namespace MVC
 {
     public class Startup
@@ -31,16 +35,21 @@ namespace MVC
             services.AddControllersWithViews();
             services
                 .AddGraphQLServer()
-                .AddQueryType<Query>();
-                // .AddMutationType<Mutation>();
-                
+                .AddQueryType<Query>()
+                .AddType<PlatformType>()
+                .AddType<CommandType>()
+                .AddFiltering()
+                .AddSorting();
+            // .AddMutationType<Mutation>();
+
             // services.AddScoped<IAccountData, DBAccountsData>(); // DI // ! 待釐清跟生命週期的關係 (AddPooledDbContextFactory)
             // services.AddScoped<ISSOAccount, DBSSOAccountData>(); // DI
-            services.AddPooledDbContextFactory<PostgresDBContext>(options => {
+            services.AddPooledDbContextFactory<PostgresDBContext>(options =>
+            {
                 options.UseNpgsql(Configuration.GetConnectionString("PostgresConnectionString"));
                 options.EnableSensitiveDataLogging();
             });
-            
+
             // ! 待釐清跟生命週期的關係
             services.AddDbContextPool<PostgresDBContext>(options =>
             {
@@ -76,6 +85,12 @@ namespace MVC
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapGraphQL(); // * enable graphql
                 // ! 待釐清跟生命週期的關係
+            });
+
+            app.UseGraphQLVoyager(new GraphQLVoyagerOptions()
+            {
+                GraphQLEndPoint = "/graphql",
+                Path = "/graphql-voyager"
             });
         }
     }

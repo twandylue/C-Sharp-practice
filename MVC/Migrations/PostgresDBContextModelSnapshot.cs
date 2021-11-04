@@ -110,7 +110,7 @@ namespace MVC.Migrations
                     b.Property<string>("LicenseKey")
                         .HasColumnType("text");
 
-                    b.Property<string>("Nmae")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 

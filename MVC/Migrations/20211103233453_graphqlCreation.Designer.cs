@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MVC.Migrations
 {
     [DbContext(typeof(PostgresDBContext))]
-    [Migration("20211103021520_sso_v1")]
-    partial class sso_v1
+    [Migration("20211103233453_graphqlCreation")]
+    partial class graphqlCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,7 +112,7 @@ namespace MVC.Migrations
                     b.Property<string>("LicenseKey")
                         .HasColumnType("text");
 
-                    b.Property<string>("Nmae")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 

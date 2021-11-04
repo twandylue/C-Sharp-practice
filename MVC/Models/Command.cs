@@ -16,7 +16,6 @@ namespace MVC.Models
         [Required]
         public int PlatformId { get; set; }
 
-        [Required]
         public Platform Platform { get; set; }
     }
 }

@@ -11,6 +11,8 @@ namespace MVC.GraphQL
     {
         [UseDbContext(typeof(PostgresDBContext))]
         [GraphQLDescription("Gets the queryable platform.")]
+        [UseFiltering]
+        [UseSorting]
         public IQueryable<Platform> GetPlatforms([ScopedService] PostgresDBContext context)
         {
             return context.Platforms;
@@ -18,6 +20,8 @@ namespace MVC.GraphQL
 
         [UseDbContext(typeof(PostgresDBContext))]
         [GraphQLDescription("Gets the queryable command.")]
+        [UseFiltering]
+        [UseSorting]
         public IQueryable<Command> GetCommands([ScopedService] PostgresDBContext context)
         {
             return context.Commands;
