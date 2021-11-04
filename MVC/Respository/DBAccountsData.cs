@@ -10,53 +10,68 @@ namespace MVC.Respository
 {
     public class DBAccountsData : IAccountData
     {
-        private PostgresDBContext _appDBContext;
+        private readonly IDbContextFactory<PostgresDBContext> _dbContextFactory;
         private readonly ILogger<DBAccountsData> _logger;
-        public DBAccountsData(PostgresDBContext context, ILogger<DBAccountsData> logger)
+        public DBAccountsData(IDbContextFactory<PostgresDBContext> dbContextFactory, ILogger<DBAccountsData> logger)
         {
-            _appDBContext = context;
+            _dbContextFactory = dbContextFactory;
             _logger = logger;
         }
         public List<Account> GetAccounts()
         {
-            return this._appDBContext.Accounts.ToList();
+            using (var dbCtx = this._dbContextFactory.CreateDbContext())
+            {
+                return dbCtx.Accounts.ToList();
+            }
         }
         public Account GetAccount(String accountName)
         {
-            _logger.LogInformation("target: " + accountName);
-            // var ret = from a in _appDBContext.Accounts where a.AccountName == accountName select a; // linq
-            var ret = this._appDBContext.Accounts.Where(a => a.AccountName == accountName).AsNoTracking().ToList(); // lamda func
-            _logger.LogInformation(JsonConvert.SerializeObject(ret, Formatting.Indented));
-            var resAccount = new Account();
-            foreach (Account account in ret)
+            using (var dbCtx = this._dbContextFactory.CreateDbContext())
             {
-                resAccount.Id = account.Id;
-                resAccount.AccountName = account.AccountName;
-                resAccount.Password = account.Password;
+                _logger.LogInformation("target: " + accountName);
+                // var ret = from a in dbCtx.Accounts where a.AccountName == accountName select a; // linq
+                var ret = dbCtx.Accounts.Where(a => a.AccountName == accountName).AsNoTracking().ToList(); // lamda func
+                _logger.LogInformation(JsonConvert.SerializeObject(ret, Formatting.Indented));
+                var resAccount = new Account();
+                foreach (Account account in ret)
+                {
+                    resAccount.Id = account.Id;
+                    resAccount.AccountName = account.AccountName;
+                    resAccount.Password = account.Password;
+                }
+                return resAccount;
             }
-            return resAccount;
         }
         public Account AddAccount(Account account)
         {
-            this._appDBContext.Accounts.Add(account);
-            this._appDBContext.SaveChanges();
-            return account;
+            using (var dbCtx = this._dbContextFactory.CreateDbContext())
+            {
+                dbCtx.Accounts.Add(account);
+                dbCtx.SaveChanges();
+                return account;
+            }
         }
         public void DeleteAccount(Account account)
         {
-            this._appDBContext.ChangeTracker.DetectChanges();
-            _logger.LogInformation(this._appDBContext.ChangeTracker.DebugView.LongView);
-            this._appDBContext.Accounts.Remove(account);
-            this._appDBContext.SaveChanges();
+            using (var dbCtx = this._dbContextFactory.CreateDbContext())
+            {
+                dbCtx.ChangeTracker.DetectChanges();
+                _logger.LogInformation(dbCtx.ChangeTracker.DebugView.LongView);
+                dbCtx.Accounts.Remove(account);
+                dbCtx.SaveChanges();
+            }
         }
         public (bool, Account) CheckAccount(Account account)
         {
-            var ret = this._appDBContext.Accounts.Where(
-                ac => ac.AccountName == account.AccountName && 
-                ac.Password == account.Password
-            ).ToList();
-            if (ret.Count == 0) return (false, null);
-            return (true, ret[0]);
+            using (var dbCtx = this._dbContextFactory.CreateDbContext())
+            {
+                var ret = dbCtx.Accounts.Where(
+                    ac => ac.AccountName == account.AccountName &&
+                    ac.Password == account.Password
+                ).ToList();
+                if (ret.Count == 0) return (false, null);
+                return (true, ret[0]);
+            }
         }
     }
 }

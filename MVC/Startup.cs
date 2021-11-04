@@ -43,17 +43,18 @@ namespace MVC
                 .AddFiltering()
                 .AddSorting()
                 .AddInMemorySubscriptions();
-                
-            // services.AddScoped<IAccountData, DBAccountsData>(); // DI // ! 待釐清跟生命週期的關係 (AddPooledDbContextFactory)
-            // services.AddScoped<ISSOAccount, DBSSOAccountData>(); // DI
-            services.AddPooledDbContextFactory<PostgresDBContext>(options =>
-            {
-                options.UseNpgsql(Configuration.GetConnectionString("PostgresConnectionString"));
-                options.EnableSensitiveDataLogging();
-            });
 
-            // ! 待釐清跟生命週期的關係
-            services.AddDbContextPool<PostgresDBContext>(options =>
+            services.AddSingleton<IAccountData, DBAccountsData>(); // DI for RESTful API
+            services.AddSingleton<ISSOAccount, DBSSOAccountData>(); // DI for RESTful API
+
+            // TODO 可以使用，但有待釐清與AddDbContextFactory間的差別
+            // services.AddPooledDbContextFactory<PostgresDBContext>(options =>
+            // {
+            //     options.UseNpgsql(Configuration.GetConnectionString("PostgresConnectionString"));
+            //     options.EnableSensitiveDataLogging();
+            // });
+
+            services.AddDbContextFactory<PostgresDBContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("PostgresConnectionString"));
                 options.EnableSensitiveDataLogging();
@@ -88,8 +89,7 @@ namespace MVC
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapGraphQL(); // * enable graphql
-                // ! 待釐清跟生命週期的關係
+                endpoints.MapGraphQL("/graphql"); // * enable graphql
             });
 
             app.UseGraphQLVoyager(new GraphQLVoyagerOptions()
