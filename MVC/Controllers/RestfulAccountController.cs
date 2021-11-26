@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
 using MVC.Models.Response;
@@ -101,7 +102,7 @@ namespace MVC.Controllers
 
         [HttpGet]
         [Route("/api/v1/checkPortalSSO")]
-        public IActionResult CheckProtalSSO()
+        public async Task<IActionResult> CheckProtalSSO()
         {
             var code = Request.Query["code"];
             Console.WriteLine("code: " + code);
@@ -119,13 +120,11 @@ namespace MVC.Controllers
             string redirect_Uri = "https://localhost:5001/";
 
             // get token
-            var token = Utility.GetTokenFromCode(code, client_id, client_secret, redirect_Uri);
+            var token = await new Utility().GetTokenFromCode(code, client_id, client_secret, redirect_Uri);
             Console.WriteLine(JsonConvert.SerializeObject(token, Formatting.Indented));
-
             // get user info
-            var userInfo = Utility.GetUserInfo(token.access_token);
+            var userInfo = await new Utility().GetUserInfo(token.access_token);
             Console.WriteLine(JsonConvert.SerializeObject(userInfo, Formatting.Indented)); // display
-
             try
             {
                 string state = rawState.Replace("\\\"", "\"");

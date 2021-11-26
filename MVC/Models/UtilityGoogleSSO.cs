@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace MVC.Models
@@ -14,33 +17,42 @@ namespace MVC.Models
         public string token_type { get; set; }
         public string id_token { get; set; }
     }
+    public class RequestBodyForToken
+    {
+        public string grant_type { get; set; }
+        public string code { get; set; }
+        public string redirect_uri { get; set; }
+        public string client_id { get; set; }
+        public string client_secret { get; set; }
+    }
     public class Utility
     {
-        public static GetTokenFromCodeResult GetTokenFromCode(string code, string clientId, string clientSecret, string redirectURI)
+        public async Task<GetTokenFromCodeResult> GetTokenFromCode(string code, string clientId, string clientSecret, string redirectURI)
         {
             try
             {
-                WebClient wc = new WebClient();
-                wc.Encoding = System.Text.Encoding.UTF8;
-                wc.Headers.Clear();
-                // wc.Headers.Add("Content-Type", "application/json");
+                RequestBodyForToken reqBodyForToken = new RequestBodyForToken
+                {
+                    grant_type = "authorization_code",
+                    code = code,
+                    redirect_uri = redirectURI,
+                    client_id = clientId,
+                    client_secret = clientSecret
+                };
 
-                var data = new System.Collections.Specialized.NameValueCollection();
-                data["grant_type"] = "authorization_code";
-                data["code"] = code;
-                data["redirect_uri"] = redirectURI;
-                data["client_id"] = clientId;
-                data["client_secret"] = clientSecret;
+                var postBody = new StringContent(
+                    JsonConvert.SerializeObject(reqBodyForToken),
+                    Encoding.UTF8,
+                    "application/json"
+                );
 
-                // post
-                byte[] bResult = wc.UploadValues("https://www.googleapis.com/oauth2/v4/token", data);
+                using var httpResponse = await new HttpClient().PostAsync(
+                    "https://www.googleapis.com/oauth2/v4/token",
+                    postBody
+                );
 
-                // get result
-                string jsonString = System.Text.Encoding.UTF8.GetString(bResult);
-
-                var GetTokenFromCodeResult = JsonConvert.DeserializeObject<GetTokenFromCodeResult>(jsonString);
+                var GetTokenFromCodeResult = JsonConvert.DeserializeObject<GetTokenFromCodeResult>(await httpResponse.Content.ReadAsStringAsync());
                 return GetTokenFromCodeResult;
-
             }
             catch (WebException ex)
             {
@@ -52,21 +64,19 @@ namespace MVC.Models
             }
         }
 
-        public static GoogleUserInfo GetUserInfo(string token)
+        public async Task<GoogleUserInfo> GetUserInfo(string token)
         {
             try
             {
-                WebClient wc = new WebClient();
-                wc.Encoding = System.Text.Encoding.UTF8;
-                wc.Headers.Clear();
-                wc.Headers.Add("Authorization", "Bearer  " + token);
-
-                // get user info 
-                string jsonString = wc.DownloadString("https://www.googleapis.com/oauth2/v1/userinfo");
-
-                // parsing Json
-                var result = Newtonsoft.Json.JsonConvert.DeserializeObject<GoogleUserInfo>(jsonString);
-                return result;
+                HttpRequestMessage req = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "https://www.googleapis.com/oauth2/v1/userinfo"
+                );
+                req.Headers.Clear();
+                req.Headers.Add("Authorization", "Bearer  " + token);
+                var response = await new HttpClient().SendAsync(req);
+                GoogleUserInfo ret = JsonConvert.DeserializeObject<GoogleUserInfo>(await response.Content.ReadAsStringAsync());
+                return ret;
             }
             catch (WebException ex)
             {
