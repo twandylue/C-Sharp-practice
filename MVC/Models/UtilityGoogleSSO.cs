@@ -46,12 +46,16 @@ namespace MVC.Models
                     "application/json"
                 );
 
-                using var httpResponse = await new HttpClient().PostAsync(
-                    "https://www.googleapis.com/oauth2/v4/token",
-                    postBody
-                );
+                HttpRequestMessage req = new HttpRequestMessage(
+                    HttpMethod.Post,
+                    "https://www.googleapis.com/oauth2/v4/token"
+                )
+                {
+                    Content = postBody
+                };
 
-                var GetTokenFromCodeResult = JsonConvert.DeserializeObject<GetTokenFromCodeResult>(await httpResponse.Content.ReadAsStringAsync());
+                var response = await new HttpClient().SendAsync(req);
+                var GetTokenFromCodeResult = JsonConvert.DeserializeObject<GetTokenFromCodeResult>(await response.Content.ReadAsStringAsync());
                 return GetTokenFromCodeResult;
             }
             catch (WebException ex)
