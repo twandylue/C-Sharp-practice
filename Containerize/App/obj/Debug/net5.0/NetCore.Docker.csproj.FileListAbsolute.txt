@@ -1,0 +1,16 @@
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Debug\net5.0\NetCore.Docker.exe
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Debug\net5.0\NetCore.Docker.deps.json
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Debug\net5.0\NetCore.Docker.runtimeconfig.json
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Debug\net5.0\NetCore.Docker.runtimeconfig.dev.json
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Debug\net5.0\NetCore.Docker.dll
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Debug\net5.0\ref\NetCore.Docker.dll
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Debug\net5.0\NetCore.Docker.pdb
+D:\91APP\C-Sharp-practice\Containerize\App\obj\Debug\net5.0\NetCore.Docker.csproj.AssemblyReference.cache
+D:\91APP\C-Sharp-practice\Containerize\App\obj\Debug\net5.0\NetCore.Docker.GeneratedMSBuildEditorConfig.editorconfig
+D:\91APP\C-Sharp-practice\Containerize\App\obj\Debug\net5.0\NetCore.Docker.AssemblyInfoInputs.cache
+D:\91APP\C-Sharp-practice\Containerize\App\obj\Debug\net5.0\NetCore.Docker.AssemblyInfo.cs
+D:\91APP\C-Sharp-practice\Containerize\App\obj\Debug\net5.0\NetCore.Docker.csproj.CoreCompileInputs.cache
+D:\91APP\C-Sharp-practice\Containerize\App\obj\Debug\net5.0\NetCore.Docker.dll
+D:\91APP\C-Sharp-practice\Containerize\App\obj\Debug\net5.0\ref\NetCore.Docker.dll
+D:\91APP\C-Sharp-practice\Containerize\App\obj\Debug\net5.0\NetCore.Docker.pdb
+D:\91APP\C-Sharp-practice\Containerize\App\obj\Debug\net5.0\NetCore.Docker.genruntimeconfig.cache

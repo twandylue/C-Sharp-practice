@@ -1363,19 +1363,21 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\91APP\\C-Sharp-practice\\background_service_practice\\ContosoWork\\ContosoWork.csproj",
+      "projectUniqueName": "d:\\91APP\\C-Sharp-practice\\background_service_practice\\ContosoWork\\ContosoWork.csproj",
       "projectName": "ContosoWork",
-      "projectPath": "D:\\91APP\\C-Sharp-practice\\background_service_practice\\ContosoWork\\ContosoWork.csproj",
+      "projectPath": "d:\\91APP\\C-Sharp-practice\\background_service_practice\\ContosoWork\\ContosoWork.csproj",
       "packagesPath": "C:\\Users\\Andy Lu2\\.nuget\\packages\\",
-      "outputPath": "D:\\91APP\\C-Sharp-practice\\background_service_practice\\ContosoWork\\obj\\",
+      "outputPath": "d:\\91APP\\C-Sharp-practice\\background_service_practice\\ContosoWork\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Andy Lu2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Andy Lu2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "npcIhjg3gARsPNsCDHYBbPIazFqPe7lqe48InzIn0+vekwXsH5MAjxNImZqV/inQeS+c4ELRHxS2HBoiwDAZ3A==",
+  "dgSpecHash": "4a02qndecP25Wtt0rEo7947cRnR03bhR/MyzeOG2r4hwh1N7mJkwRdPv8TwPr+Q5D5CctuG3K0JqN0p7dUsWTQ==",
   "success": true,
-  "projectFilePath": "D:\\91APP\\C-Sharp-practice\\background_service_practice\\ContosoWork\\ContosoWork.csproj",
+  "projectFilePath": "d:\\91APP\\C-Sharp-practice\\background_service_practice\\ContosoWork\\ContosoWork.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\microsoft.extensions.configuration\\5.0.0\\microsoft.extensions.configuration.5.0.0.nupkg.sha512",
     "C:\\Users\\Andy Lu2\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\5.0.0\\microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",

@@ -74,7 +74,7 @@ namespace ContosoWork
         {
             _channel.BasicCancel(_cosumerTag);
             _channel.Close(); // first
-            _connection.Close(); // second before closing channel
+            _connection.Close(); // second after closing channel
             return base.StopAsync(cancellationToken);
         }
     }

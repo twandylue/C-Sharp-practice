@@ -1,0 +1,5 @@
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Release\net5.0\publish\NetCore.Docker.exe
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Release\net5.0\publish\NetCore.Docker.dll
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Release\net5.0\publish\NetCore.Docker.deps.json
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Release\net5.0\publish\NetCore.Docker.runtimeconfig.json
+D:\91APP\C-Sharp-practice\Containerize\App\bin\Release\net5.0\publish\NetCore.Docker.pdb

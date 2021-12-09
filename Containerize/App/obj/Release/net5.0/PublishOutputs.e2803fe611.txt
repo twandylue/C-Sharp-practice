@@ -1,0 +1,5 @@
+D:\91APP\C-Sharp-practice\Containerize\App\out\NetCore.Docker.exe
+D:\91APP\C-Sharp-practice\Containerize\App\out\NetCore.Docker.dll
+D:\91APP\C-Sharp-practice\Containerize\App\out\NetCore.Docker.deps.json
+D:\91APP\C-Sharp-practice\Containerize\App\out\NetCore.Docker.runtimeconfig.json
+D:\91APP\C-Sharp-practice\Containerize\App\out\NetCore.Docker.pdb

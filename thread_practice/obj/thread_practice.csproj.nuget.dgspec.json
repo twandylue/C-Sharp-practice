@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "D:\\91APP\\C-Sharp-practice\\thread_practice\\thread_practice.csproj": {}
+    "d:\\91APP\\C-Sharp-practice\\thread_practice\\thread_practice.csproj": {}
   },
   "projects": {
-    "D:\\91APP\\C-Sharp-practice\\thread_practice\\thread_practice.csproj": {
+    "d:\\91APP\\C-Sharp-practice\\thread_practice\\thread_practice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\91APP\\C-Sharp-practice\\thread_practice\\thread_practice.csproj",
+        "projectUniqueName": "d:\\91APP\\C-Sharp-practice\\thread_practice\\thread_practice.csproj",
         "projectName": "thread_practice",
-        "projectPath": "D:\\91APP\\C-Sharp-practice\\thread_practice\\thread_practice.csproj",
+        "projectPath": "d:\\91APP\\C-Sharp-practice\\thread_practice\\thread_practice.csproj",
         "packagesPath": "C:\\Users\\Andy Lu2\\.nuget\\packages\\",
-        "outputPath": "D:\\91APP\\C-Sharp-practice\\thread_practice\\obj\\",
+        "outputPath": "d:\\91APP\\C-Sharp-practice\\thread_practice\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Andy Lu2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Andy Lu2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
